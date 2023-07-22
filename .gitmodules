@@ -1,0 +1,3 @@
+[submodule "coordinator"]
+	path = coordinator
+	url = git@github.com:Isurudb/Coordinator.git
