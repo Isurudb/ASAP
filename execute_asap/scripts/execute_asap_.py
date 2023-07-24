@@ -89,7 +89,7 @@ class ASAP:
         self.bag_proc = []  # process for bag recording
         self.bag_filename = ''
         self.gds_roam_bagger = "enabled"  # {enabled or disabled} is the roam bagger enabled?
-        self.bag_robot_name = "bumble"
+        self.bag_robot_name = "wannabee"
         self.gds_telem = ['.'] * 17  # telemetry to send to GDS, TODO: update start size if modifying or APK will error!
 
     def start_nodelets(self):
@@ -489,7 +489,7 @@ if __name__ == "__main__":
 
     # Set up the main testing interface.
     ASAP_main = ASAP(bee_roles=['primary', 'secondary', 'tertiary'],  # TODO: add tertiary interface
-                     bee_topic_prefixes=['/queen/', '/bumble/', '/honey/'])
+                     bee_topic_prefixes=['/queen/', '/wannabee/', '/honey/'])
 
     signal(SIGINT, ASAP_main.handler)  # for ctl-c handling
 
@@ -507,11 +507,11 @@ if __name__ == "__main__":
             test_number_msg_name = "/honey/asap/test_number"
             status_msg_name = "/honey/asap/status"
             signal_msg_name = "/honey/signals"
-        elif arg_robot_name == "bumble":
+        elif arg_robot_name == "wannabee":
             ASAP_main.my_role = 'secondary'
-            test_number_msg_name = "/bumble/asap/test_number"
-            status_msg_name = "/bumble/asap/status"
-            signal_msg_name = "/bumble/signals"
+            test_number_msg_name = "/wannabee/asap/test_number"
+            status_msg_name = "/wannabee/asap/status"
+            signal_msg_name = "/wannabee/signals"
         elif arg_robot_name == "queen":
             ASAP_main.my_role = 'primary'
             test_number_msg_name = "/queen/asap/test_number"
