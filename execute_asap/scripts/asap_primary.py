@@ -28,7 +28,7 @@ def primary_execute_test(bee_topic_prefix, test_number=-1, ground='false', sim='
     rospy.set_param('/asap/sim', sim)  # options are: ['false', 'true']
    
     rospy.set_param('/asap/secondary_robot_name', 'bsharp')  # options are: ['false', 'true']
-    rospy.set_param('/asap/primary_robot_name', 'wannabee')  # options are: ['false', 'true']
+    rospy.set_param('/asap/primary_robot_name', '')  # options are: ['false', 'true']
 
 
     if (ground == "true"):
