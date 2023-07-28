@@ -299,8 +299,10 @@ class ASAP:
         if self.gds_role == "robot_name":  # if role has not been set by GDS
             if name_data.data == "Honey" or name_data.data == "Queen" or name_data.data == "Bsharp":
                 self.my_role = 'primary'
+                print("[EXECUTE_ASAP]: Role: ", self.my_role,end="\n")
             else:
                 self.my_role = 'secondary'
+                print("[EXECUTE_ASAP]: Role: ", self.my_role,end="\n")
 
     def status_callback(self, status_msg):
         """ Subscribe to status published by C++ coordinator.
@@ -455,7 +457,7 @@ class ASAP:
                 self.update_gds_telemetry(global_gds_param_count)
 
             # Start test if not -1. Otherwise, wait.
-            if (self.test_num is not -1 and self.test_started is False):
+            if (self.test_num != -1 and self.test_started is False):
                 if self.test_num_okay():  # sanity check the test num before sending
                     self.run_test()
             if (self.test_num == -1 and self.test_started is True):

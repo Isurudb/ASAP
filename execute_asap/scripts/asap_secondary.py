@@ -26,6 +26,11 @@ def secondary_execute_test(bee_topic_prefix, test_number=-1, ground='false', sim
     rospy.set_param('/asap/ground', ground)  # options are: ['false', 'true']
     rospy.set_param('/asap/sim', sim)  # options are: ['false', 'true']
 
+    primary_robot_name="" #'/queen'
+    secondary_robot_name="" #'/bumble'
+    rospy.set_param('/asap/primary_robot_name',primary_robot_name)
+    rospy.set_param('/asap/secondary_robot_name',secondary_robot_name)
+
     # Set initial position
     if (ground == "true"):
 
