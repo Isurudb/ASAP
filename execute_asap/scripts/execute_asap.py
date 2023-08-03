@@ -338,6 +338,8 @@ class ASAP:
             self.gds_telem = [
                 str(status_msg.test_finished),
                 str(status_msg.coord_ok),
+                str(status_msg.control_mode),
+                str(status_msg.regulate_finished),
                 ".",
                 ".",
                 ".",
@@ -349,10 +351,8 @@ class ASAP:
                 ".",
                 ".",
                 ".",
-                str(status_msg.solver_status),
-                str(status_msg.cost_value),
-                str(status_msg.kkt_value),
-                str(status_msg.sol_time)]
+                ".",
+                "."]
 
     def update_gds_telemetry(self, global_gds_param_count):
         """ Set params to send GDS telemetry (5x slower).
