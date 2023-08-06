@@ -95,8 +95,6 @@ class ASAP:
         self.secondary_robot_name=""
         self.goal="0,0,0"
 
-
-
     def start_nodelets(self):
         """ Start up all nodelets. Works for /robot_prefix/ or / namespaces.
         Uses a system `roslaunch` call to start launch files for the LLP and MLP.
@@ -144,7 +142,7 @@ class ASAP:
         # Use ROS to kill processes
         processes = []
         for node in node_kill_list:
-            command = "rosnode kill " + prefix + node
+            command = "rosnode kill " + node
             p = subprocess.Popen(command, shell=True)
             processes.append(p)
         time.sleep(5)
@@ -239,12 +237,9 @@ class ASAP:
         if self.my_role == 'primary':
             # Run primary_asap for test parameters
             asap_primary.primary_execute_test( self.bee_topic_prefixes[1], test_number,ground, sim,primary_robot_name=self.primary_robot_name,secondary_robot_name=self.secondary_robot_name,goal=self.goal)
-            #asap_primary.primary_execute_test(self.bee_topic_prefixes[0], test_number, ground, sim)
         elif self.my_role == 'secondary':
             # Run secondary_asap for test parameters
-
             asap_secondary.secondary_execute_test(self.bee_topic_prefixes[1], test_number, ground, sim,primary_robot_name=self.primary_robot_name,secondary_robot_name=self.secondary_robot_name,goal=self.goal)
-            #asap_secondary.secondary_execute_test(self.bee_topic_prefixes[1], test_number, ground, sim)
 
         # Ensure params are set before nodelets start running
         time.sleep(2)
@@ -305,10 +300,12 @@ class ASAP:
 
         # for role
         if self.gds_role == "robot_name":  # if role has not been set by GDS
-            if name_data.data == "Honey" or name_data.data == "Queen" or name_data.data == "Wannabee":
+            if name_data.data == "Honey" or name_data.data == "Queen" or name_data.data == "Bsharp":
                 self.my_role = 'primary'
+                print("[EXECUTE_ASAP]: Role: ", self.my_role,end="\n")
             else:
                 self.my_role = 'secondary'
+                print("[EXECUTE_ASAP]: Role: ", self.my_role,end="\n")
 
     def status_callback(self, status_msg):
         """ Subscribe to status published by C++ coordinator.
@@ -361,7 +358,6 @@ class ASAP:
                 ".",
                 ".",
                 "."]
-
     def update_gds_telemetry(self, global_gds_param_count):
         """ Set params to send GDS telemetry (5x slower).
         TODO: Update telemetry vector in GDS!
@@ -463,7 +459,7 @@ class ASAP:
                 self.update_gds_telemetry(global_gds_param_count)
 
             # Start test if not -1. Otherwise, wait.
-            if (self.test_num is not -1 and self.test_started is False):
+            if (self.test_num != -1 and self.test_started is False):
                 if self.test_num_okay():  # sanity check the test num before sending
                     self.run_test()
             if (self.test_num == -1 and self.test_started is True):
@@ -533,12 +529,15 @@ if __name__ == "__main__":
     # ROS initialization
     # initialize GDS params (need to change astrobee android!)
     gds_role=myargv[3]
+    coupled=myargv[6]
     print(gds_role,end="\n\n")
     rospy.set_param("/asap/gds_ground", "false")  # 'true' or 'false'
     rospy.set_param("/asap/gds_sim", "hardware")  # 'hardware' or 'sim'
     rospy.set_param("/asap/gds_test_num", -1)
     rospy.set_param("/asap/gds_role", gds_role)  # default to using robot_name
     rospy.set_param("/asap/gds_roam_bagger", "enabled")  # "enabled" or "disabled"
+    rospy.set_param("/asap/coupled", coupled)  # "enabled" or "disabled"
+
 
     # subscriber for robot name topic
     rospy.Subscriber("/robot_name", String, ASAP_main.bee_name_callback)
