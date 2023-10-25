@@ -549,5 +549,13 @@ if __name__ == "__main__":
 
     time.sleep(1.0)  # wait for subs to come in
     print("[EXECUTE_ASAP]: Initialized.")
+    print("[EXECUTE_ASAP]: Initialized.")
+    print ("[EXECUTE_ASAP]: Summary      :")
+    print ("------------------------------")
+    print ("[EXECUTE_ASAP]: Robot        :",arg_robot_name)
+    print ("[EXECUTE_ASAP]: Role         :",gds_role)
+    print ("[EXECUTE_ASAP]: coupled      :",coupled)
+    print ("[EXECUTE_ASAP]: Second Robot :",ASAP_main.secondary_robot_name)
+    print ("[EXECUTE_ASAP]: Goal Position:",ASAP_main.goal)
     ASAP_main.ros_loop()
 
